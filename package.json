@@ -1,0 +1,34 @@
+{
+  "name": "redfox",
+  "version": "0.0.1",
+  "description": "A simple logger",
+  "main": "redfox.js",
+  "scripts": {
+    "test": "npx nyc mocha --exit test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsmrcaga/redfox.git"
+  },
+  "keywords": [
+    "logger",
+    "logs",
+    "log",
+    "simple",
+    "hooks"
+  ],
+  "author": "Jo Colina <jo@jocolina.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsmrcaga/redfox/issues"
+  },
+  "homepage": "https://github.com/jsmrcaga/redfox#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "sinon": "^6.3.4"
+  },
+  "dependencies": {
+    "chalk": "^2.4.1"
+  }
+}
