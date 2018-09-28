@@ -1,8 +1,14 @@
 const chalk = require('chalk');
+const utils = require('./lib/utils');
 
 class RedFox {
-	constructor(level = 5) {
+	constructor(level = 5, format) {
 		this.level = level;
+		this.__format = format || utils.formatDate;
+	}
+
+	formatDate(date) {
+		return this.__format(date);
 	}
 
 	setLevel(level = 5) {
@@ -19,7 +25,7 @@ class RedFox {
 
 	uncaught() {
 		let args = Array.prototype.slice.call(arguments);
-		args.unshift(chalk.red(`[${(new Date()).toLocaleString()}]`));
+		args.unshift(chalk.red(`[${this.formatDate(new Date())}]`));
 		console.error.apply(console.error, args);
 	}
 
@@ -29,7 +35,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
-		args.unshift(`[${(new Date()).toLocaleString()}]`);
+		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.warn(chalk.yellow.apply(chalk.yellow, args));
 	}
 
@@ -39,7 +45,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
-		args.unshift(`[${(new Date()).toLocaleString()}]`);
+		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.info(chalk.blue.apply(chalk.blue, args));
 	}
 
@@ -49,7 +55,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
-		args.unshift(`[${(new Date()).toLocaleString()}]`);
+		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.log(chalk.green.apply(chalk.green, args));
 	}
 
@@ -59,7 +65,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
-		args.unshift(`[${(new Date()).toLocaleString()}]`);
+		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.log.apply(console.log, args);
 	}
 }
