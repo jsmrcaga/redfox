@@ -25,6 +25,7 @@ class RedFox {
 
 	uncaught() {
 		let args = Array.prototype.slice.call(arguments);
+		args = utils.cluster(args);
 		args.unshift(chalk.red(`[${this.formatDate(new Date())}]`));
 		console.error.apply(console.error, args);
 	}
@@ -35,6 +36,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.warn(chalk.yellow.apply(chalk.yellow, args));
 	}
@@ -45,6 +47,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.info(chalk.blue.apply(chalk.blue, args));
 	}
@@ -55,6 +58,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.log(chalk.green.apply(chalk.green, args));
 	}
@@ -65,6 +69,7 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.log.apply(console.log, args);
 	}
