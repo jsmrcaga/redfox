@@ -50,6 +50,9 @@ Sets the level. Must be an int.
 ### `error()`
 Logs if: `level > 0`
 
+This method will only render the date in red.
+Formatting error objects is lost to `chalk` otherwise.
+
 ### `uncaught()`
 Skips level checking
 

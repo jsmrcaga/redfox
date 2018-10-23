@@ -5,6 +5,27 @@ class RedFox {
 	constructor(level = 5, format) {
 		this.level = level;
 		this.__format = format || utils.formatDate;
+		this.__events = {
+			error: []
+		};
+	}
+
+	on(event, callback) {
+		if(!this.__events[event]) {
+			throw new Error(`Event ${event} doest not exist, please use error`);
+		}
+
+		this.__events[event].push(callback);
+	}
+
+	emit(event, data) {
+		if(!this.__events[event]) {
+			throw new Error(`Event ${event} doest not exist, please use error`);
+		}
+
+		for(let callback of this.__events[event]) {
+			callback(...data);
+		}
 	}
 
 	formatDate(date) {
@@ -20,6 +41,7 @@ class RedFox {
 			return;
 		}
 
+		this.emit('error', args);
 		this.uncaught(...args);
 	}
 

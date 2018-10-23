@@ -61,4 +61,27 @@ describe('Generic tests', () => {
 		expect(console.warn.callCount).to.be.eql(1);
 		expect(console.info.callCount).to.be.eql(1);
 	});
+
+	it('Should register an error callback', () => {
+		let logger  = new RedFox();
+		logger.on('error', () => {});
+
+		expect(Object.keys(logger.__events).length).to.be.eql(1);
+		expect(logger.__events).to.have.property('error');
+		expect(logger.__events.error).to.be.instanceOf(Array);
+		expect(logger.__events.error.length).to.be.eql(1);
+	});
+
+	it('Should register an error callback and call it', done => {
+		let logger  = new RedFox();
+		logger.on('error', () => done());
+
+		logger.error('This is an error');
+	});
+
+	it('Should throw when registering bullshit', () => {
+		let logger  = new RedFox();
+		
+		expect(() => logger.on('bs', () => {})).to.throw();
+	})
 });
