@@ -19,7 +19,7 @@ myLogger.success('⚡️');
 ```
 
 ## Installation
-SUpposing you have Node and npm installed:
+Supposing you have Node and npm installed:
 
 ```
 npm i redfox
