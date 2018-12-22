@@ -12,7 +12,7 @@ class RedFox {
 
 	on(event, callback) {
 		if(!this.__events[event]) {
-			throw new Error(`Event ${event} doest not exist, please use error`);
+			this.__events[event] = [];
 		}
 
 		this.__events[event].push(callback);
@@ -20,7 +20,7 @@ class RedFox {
 
 	emit(event, data) {
 		if(!this.__events[event]) {
-			throw new Error(`Event ${event} doest not exist, please use error`);
+			return;
 		}
 
 		for(let callback of this.__events[event]) {
@@ -41,12 +41,23 @@ class RedFox {
 			return;
 		}
 
-		this.emit('error', args);
-		this.uncaught(...args);
+		this.uncaught({
+			emit: 'error'
+		}, ...args);
 	}
 
 	uncaught() {
 		let args = Array.prototype.slice.call(arguments);
+
+		if(args[0] instanceof Object && args[0].emit){
+			let emit = args[0];
+			args.splice(0, 1);
+			this.emit(emit.emit, args);
+
+		} else {
+			this.emit('uncaught', args);
+		}
+
 		args = utils.cluster(args);
 		args.unshift(chalk.red(`[${this.formatDate(new Date())}]`));
 		console.error.apply(console.error, args);
@@ -58,6 +69,8 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		this.emit('warn', args);
+
 		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.warn(chalk.yellow.apply(chalk.yellow, args));
@@ -69,6 +82,8 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		this.emit('info', args);
+
 		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.info(chalk.blue.apply(chalk.blue, args));
@@ -80,6 +95,8 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		this.emit('success', args);
+
 		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.log(chalk.green.apply(chalk.green, args));
@@ -91,6 +108,8 @@ class RedFox {
 		}
 
 		let args = Array.prototype.slice.call(arguments);
+		this.emit('log', args);
+		
 		args = utils.cluster(args);
 		args.unshift(`[${this.formatDate(new Date())}]`);
 		console.log.apply(console.log, args);

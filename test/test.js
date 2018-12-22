@@ -78,10 +78,4 @@ describe('Generic tests', () => {
 
 		logger.error('This is an error');
 	});
-
-	it('Should throw when registering bullshit', () => {
-		let logger  = new RedFox();
-		
-		expect(() => logger.on('bs', () => {})).to.throw();
-	})
 });
